@@ -219,22 +219,34 @@
 				exx= ex + element.width,
 				eyy= ey + element.height;
 
+				// Si le bord bas du projectile est au même y que le bord haut de la brique et qu'on est bien 
+				// entre le bord gauche et droit de la brique -> on tape le haut
 				if( pyy == ey && py < ey && pxx >= ex && pxx <= exx ) {
 					oProjectile.angle = fRebound( oProjectile.angle, "bottom" );
 					aBricks.splice(aBricks.indexOf(element), 1);
 				}
 
+				// Si le bord haut du projectile est au même y que le bord bas de la brique et qu'on est bien 
+				// entre le bord gauche et droit de la brique -> on tape le bas
 				if ( py == eyy && pyy > eyy && pxx >= ex && pxx <= exx ) {
 					oProjectile.angle = fRebound( oProjectile.angle, "top" );
 					aBricks.splice(aBricks.indexOf(element), 1);
 				}
 
+				// Si le bord droit du projectile est au même x que le bord gauche de la brique
+				// et que le bord haut du projectile est entre le bord haut et bas de la brique 
+				// ou que le bord bas du projectile est entre le bord haut et bas de la brique
+				// -> on tape la gauche
 				if( pxx == ex && (( py >= ey && py <= eyy ) || ( pyy <= eyy && pyy >= ey )) ) {
 					oProjectile.angle = fRebound( oProjectile.angle, "right" );
 					console.log('hit right');
 					aBricks.splice(aBricks.indexOf(element), 1);
 				}
 
+				// Si le bord gauche du projectile est au même x que le bord droit de la brique
+				// et que le bord haut du projectile est entre le bord haut et bas de la brique 
+				// ou que le bord bas du projectile est entre le bord haut et bas de la brique
+				// -> on tape la droite
 				if( px == exx && (( py >= ey && py <= eyy ) || ( pyy <= eyy && pyy >= ey )) ) {
 					oProjectile.angle = fRebound( oProjectile.angle, "left" );
 					console.log('hit left');
